@@ -86,7 +86,7 @@ AUTHENTICATION_BACKENDS = (
 )
 LOGIN_URL = 'oidc_authentication_init'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'http://provider.local/'
+LOGOUT_REDIRECT_URL = 'http://op.local/'
 LOGIN_REDIRECT_URL_FAILURE = '/login-failed'
 
 
