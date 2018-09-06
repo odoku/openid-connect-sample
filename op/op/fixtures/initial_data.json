@@ -1,0 +1,48 @@
+[
+    {
+        "model": "oidc_provider.client",
+        "pk": 1,
+        "fields": {
+            "name": "Relying Party 1",
+            "owner": null,
+            "client_type": "confidential",
+            "client_id": "094032",
+            "client_secret": "cc688abf884849532afe58fac493cf46886502b2d69b5a24020ce2b6",
+            "response_type": "code",
+            "jwt_alg": "RS256",
+            "date_created": "2018-09-05",
+            "website_url": "",
+            "terms_url": "",
+            "contact_email": "",
+            "logo": "",
+            "reuse_consent": false,
+            "require_consent": false,
+            "_redirect_uris": "http://rp1.local/openid/callback/",
+            "_post_logout_redirect_uris": "http://rp1.local/logout/",
+            "_scope": ""
+        }
+    },
+    {
+        "model": "oidc_provider.client",
+        "pk": 2,
+        "fields": {
+            "name": "Relying Party 2",
+            "owner": null,
+            "client_type": "confidential",
+            "client_id": "324980",
+            "client_secret": "cc688abf884849532afe58fac493cf46886502b2d69b5a24020ce2b6",
+            "response_type": "code",
+            "jwt_alg": "RS256",
+            "date_created": "2018-09-06",
+            "website_url": "",
+            "terms_url": "",
+            "contact_email": "",
+            "logo": "",
+            "reuse_consent": false,
+            "require_consent": false,
+            "_redirect_uris": "http://rp2.local/openid/callback/",
+            "_post_logout_redirect_uris": "http://rp2.local/logout/",
+            "_scope": ""
+        }
+    }
+]

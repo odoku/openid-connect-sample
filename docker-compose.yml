@@ -1,0 +1,98 @@
+---
+version: '3'
+
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 192.168.100.0/24
+
+
+services:
+  # ===================================================================
+  # Application
+  # ===================================================================
+  openid-op:
+    build: ./op
+    image: openid-op
+    container_name: openid-op
+    environment:
+      DEBUG: 'true'
+    ports:
+      - 8000:8000
+    extra_hosts:
+      - rp1.local:192.168.100.200
+      - rp2.local:192.168.100.200
+    volumes:
+      - ./op:/var/www/app
+      - ./volumes/openid-op:/data
+    networks:
+      mynet:
+        ipv4_address: 192.168.100.100
+    restart: always
+
+  openid-rp1:
+    build: ./rp
+    image: openid-rp
+    container_name: openid-rp1
+    environment:
+      SITE_NAME: rp1
+      OPENID_CLIEND_ID: '094032'
+      OPENID_CLIENT_SECRET: cc688abf884849532afe58fac493cf46886502b2d69b5a24020ce2b6
+      OPENID_PROVIDER_URI: http://op.local
+    ports:
+      - 8001:8000
+    extra_hosts:
+      - op.local:192.168.100.200
+      - rp2.local:192.168.100.200
+    volumes:
+      - ./rp:/var/www/app
+      - ./volumes/openid-rp1:/data
+    networks:
+      mynet:
+        ipv4_address: 192.168.100.101
+    restart: always
+
+  openid-rp2:
+    build: ./rp
+    image: openid-rp
+    container_name: openid-rp2
+    environment:
+      SITE_NAME: rp2
+      OPENID_CLIEND_ID: '324980'
+      OPENID_CLIENT_SECRET: cc688abf884849532afe58fac493cf46886502b2d69b5a24020ce2b6
+      OPENID_PROVIDER_URI: http://op.local
+    ports:
+      - 8002:8000
+    extra_hosts:
+      - op.local:192.168.100.200
+      - rp1.local:192.168.100.200
+    volumes:
+      - ./rp:/var/www/app
+      - ./volumes/openid-rp2:/data
+    networks:
+      mynet:
+        ipv4_address: 192.168.100.102
+    restart: always
+
+
+  # ===================================================================
+  # Middlewares
+  # ===================================================================
+  openid-nginx:
+    image: nginx:1.13-alpine
+    container_name: openid-nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./volumes/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      mynet:
+        ipv4_address: 192.168.100.200
+    depends_on:
+      - openid-op
+      - openid-rp1
+      - openid-rp2
