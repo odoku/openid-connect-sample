@@ -19,6 +19,7 @@ sudo sh -c "echo 127.0.0.1 rp2.local >> /etc/hosts"
 1. If you open "http://rp1.local/", it will be redirected to "http://op.local/login/".
 2. Login to "http://op.local/login/".
 3. Open "http://rp2.local". You can see that you are already logged in.
-4. If you click the logout button of "http: //rp2.local/", it will be redirected to "http://op.local/logout/"
+4. If you click the logout button of "http://rp2.local/", it will be redirected to "http://op.local/logout/"
 5. Open "http://rp1.local". You can see that you are already logged out.
 
+![cdraw](https://user-images.githubusercontent.com/195677/45148382-16fa9600-b202-11e8-96ac-5bcb1b818ba7.png)
